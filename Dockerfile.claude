@@ -1,0 +1,26 @@
+FROM node:24-bookworm-slim
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+       bash \
+       ca-certificates \
+       fd-find \
+       git \
+       ripgrep \
+    && ln -s /usr/bin/fdfind /usr/local/bin/fd \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN npm install -g @anthropic-ai/claude-code
+
+RUN mkdir -p /workspace && chown node:node /workspace
+
+USER node
+
+WORKDIR /workspace
+
+ENV CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1
+
+RUN echo '{"hasCompletedOnboarding":true}' > /workspace/.claude.json
+
+CMD ["claude"]
+
