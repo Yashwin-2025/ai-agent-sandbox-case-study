@@ -1,0 +1,17 @@
+
+Created sandbox: cs-ancestry
+
+  [0.0s] Requesting compute...
+[0.0s] Sandbox allocated
+[0.0s] Pulling image claude-agent:local
+[0.0s] Image already present
+[0.4s] Starting sandbox Container created
+== From a plain shell (parent: bash)
+[shell ] P1 node -> openrouter (no auth)       : BLOCKED EACCES
+[shell ] P2 node -> openrouter (placeholder key): BLOCKED EACCES
+[shell ] P3 git  -> openrouter                   : BLOCKED
+== From a Claude Code SessionStart hook (parent: claude.exe)
+[claude] P1 node -> openrouter (no auth)       : HTTP 200
+[claude] P2 node -> openrouter (placeholder key): HTTP 200 (real key injected)
+[claude] P3 git  -> openrouter                   : reached (HTTP error from server)
+__STAGE_DONE__

@@ -1,0 +1,54 @@
+[1790764294.836] [sandbox] [INFO ] [openshell_supervisor] Starting sandbox supervision command=["bash", "-c", "for i in $(seq 1 14); do node -e \"fetch(\\\"https://example.com\\\",{method:\\\"HEAD\\\",signal:AbortSignal.timeout(4000)}).then(r=>console.log(new Date().toISOString(),\\\"example.com -> HTTP\\\",r.status)).catch(e=>console.log(new Date().toISOString(),\\\"example.com -> BLOCKED\\\",e.cause&&e.cause.code||e.name))\"; sleep 4; done; echo CTRLDONE"]
+[1790764295.042] [sandbox] [OCSF ] [ocsf] CONFIG:DISCOVERY [INFO] Server returned no policy; attempting local discovery
+[1790764295.076] [sandbox] [OCSF ] [ocsf] CONFIG:CONFIGURED [INFO] OPA runtime binary identity mode configured [source:proto require_binary_identity:true] [source:proto]
+[1790764295.116] [sandbox] [OCSF ] [ocsf] CONFIG:ENABLED [INFO] TLS termination enabled: ephemeral CA generated
+[1790764295.117] [sandbox] [OCSF ] [ocsf] CONFIG:READY [INFO] Policy DNS connected to isolation boundary
+[1790764295.157] [sandbox] [OCSF ] [ocsf] CONFIG:LOADED [INFO] Acknowledged initial policy revision as loaded [version:1] [hash:1d7c54d58f6e05f0996a122f76c7b6c0512692ef5347f8f653cf67c642f76ffa]
+[1790764295.278] [sandbox] [OCSF ] [ocsf] NET:REFUSE [MED] DENIED example.com [reason:policy_dns_ineligible]
+[1790764295.278] [sandbox] [OCSF ] [ocsf] CONFIG:OBSERVATION [INFO] Policy DNS staged unapproved name example.com synthetic=198.18.0.2 for TCP policy review
+[1790764296.192] [sandbox] [WARN ] [openshell_supervisor_network::proxy] Denied staged transparent connection destination=198.18.0.2:443 reason=endpoint example.com:443 is not allowed by any policy
+[1790764296.192] [sandbox] [OCSF ] [ocsf] NET:OPEN [MED] DENIED /usr/local/bin/node(0) -> example.com:443 [reason:transparent_tcp_policy_denied]
+[1790764300.336] [sandbox] [OCSF ] [ocsf] NET:REFUSE [MED] DENIED example.com [reason:policy_dns_ineligible]
+[1790764300.336] [sandbox] [OCSF ] [ocsf] CONFIG:OBSERVATION [INFO] Policy DNS staged unapproved name example.com synthetic=198.18.0.2 for TCP policy review
+[1790764300.342] [sandbox] [WARN ] [openshell_supervisor_network::proxy] Denied staged transparent connection destination=198.18.0.2:443 reason=endpoint example.com:443 is not allowed by any policy
+[1790764300.343] [sandbox] [OCSF ] [ocsf] NET:OPEN [MED] DENIED /usr/local/bin/node(0) -> example.com:443 [reason:transparent_tcp_policy_denied]
+[1790764304.435] [sandbox] [OCSF ] [ocsf] NET:REFUSE [MED] DENIED example.com [reason:policy_dns_ineligible]
+[1790764304.435] [sandbox] [OCSF ] [ocsf] CONFIG:OBSERVATION [INFO] Policy DNS staged unapproved name example.com synthetic=198.18.0.2 for TCP policy review
+[1790764304.438] [sandbox] [WARN ] [openshell_supervisor_network::proxy] Denied staged transparent connection destination=198.18.0.2:443 reason=endpoint example.com:443 is not allowed by any policy
+[1790764304.438] [sandbox] [OCSF ] [ocsf] NET:OPEN [MED] DENIED /usr/local/bin/node(0) -> example.com:443 [reason:transparent_tcp_policy_denied]
+[1790764305.155] [sandbox] [OCSF ] [ocsf] CONFIG:DETECTED [INFO] Settings poll: config change detected [old_revision:10067005547663184644 new_revision:4590911867861786388 policy_changed:true provider_env_changed:true]
+[1790764305.165] [sandbox] [OCSF ] [ocsf] CONFIG:CONFIGURED [INFO] OPA runtime binary identity mode configured [source:proto require_binary_identity:true] [source:proto]
+[1790764305.169] [sandbox] [OCSF ] [ocsf] CONFIG:LOADED [INFO] Policy reloaded successfully [policy_hash:1b71635da89e7930c9e36becb217b5445d8f46e98c05c5baaf3065622effcc99] [hash:1b71635da89e7930c9e36becb217b5445d8f46e98c05c5baaf3065622effcc99]
+[1790764308.628] [sandbox] [OCSF ] [ocsf] CONFIG:PUBLISHED [INFO] Policy DNS mapped example.com resolved=104.20.23.154,172.66.147.243 synthetic=198.18.0.3 ports=443 mapping_id=1ed31972-a2a1-4516-9e34-623b13881270
+[1790764308.643] [sandbox] [OCSF ] [ocsf] NET:OPEN [INFO] ALLOWED /usr/local/bin/node(0) -> example.com:443 [policy:poc-negative-control engine:opa]
+[1790764308.678] [sandbox] [OCSF ] [ocsf] HTTP:HEAD [INFO] ALLOWED HEAD http://example.com:443/ [policy:poc-negative-control engine:l7]
+[1790764312.840] [sandbox] [OCSF ] [ocsf] CONFIG:PUBLISHED [INFO] Policy DNS mapped example.com resolved=104.20.23.154,172.66.147.243 synthetic=198.18.0.3 ports=443 mapping_id=77e646ee-b898-4da0-a0e7-2828d5909fd1
+[1790764312.855] [sandbox] [OCSF ] [ocsf] NET:OPEN [INFO] ALLOWED /usr/local/bin/node(0) -> example.com:443 [policy:poc-negative-control engine:opa]
+[1790764312.874] [sandbox] [OCSF ] [ocsf] HTTP:HEAD [INFO] ALLOWED HEAD http://example.com:443/ [policy:poc-negative-control engine:l7]
+[1790764317.038] [sandbox] [OCSF ] [ocsf] CONFIG:PUBLISHED [INFO] Policy DNS mapped example.com resolved=104.20.23.154,172.66.147.243 synthetic=198.18.0.3 ports=443 mapping_id=2911a4cf-5391-493a-8f7a-f667fece8d39
+[1790764317.060] [sandbox] [OCSF ] [ocsf] NET:OPEN [INFO] ALLOWED /usr/local/bin/node(0) -> example.com:443 [policy:poc-negative-control engine:opa]
+[1790764317.080] [sandbox] [OCSF ] [ocsf] HTTP:HEAD [INFO] ALLOWED HEAD http://example.com:443/ [policy:poc-negative-control engine:l7]
+[1790764321.291] [sandbox] [OCSF ] [ocsf] CONFIG:PUBLISHED [INFO] Policy DNS mapped example.com resolved=104.20.23.154,172.66.147.243 synthetic=198.18.0.3 ports=443 mapping_id=d79d9f18-b801-4533-b018-08122c4bf00b
+[1790764321.310] [sandbox] [OCSF ] [ocsf] NET:OPEN [INFO] ALLOWED /usr/local/bin/node(0) -> example.com:443 [policy:poc-negative-control engine:opa]
+[1790764321.331] [sandbox] [OCSF ] [ocsf] HTTP:HEAD [INFO] ALLOWED HEAD http://example.com:443/ [policy:poc-negative-control engine:l7]
+[1790764325.588] [sandbox] [OCSF ] [ocsf] CONFIG:PUBLISHED [INFO] Policy DNS mapped example.com resolved=104.20.23.154,172.66.147.243 synthetic=198.18.0.3 ports=443 mapping_id=f9ce70e0-15c4-45ed-a01b-469e7ce1202d
+[1790764325.634] [sandbox] [OCSF ] [ocsf] NET:OPEN [INFO] ALLOWED /usr/local/bin/node(0) -> example.com:443 [policy:poc-negative-control engine:opa]
+[1790764325.655] [sandbox] [OCSF ] [ocsf] HTTP:HEAD [INFO] ALLOWED HEAD http://example.com:443/ [policy:poc-negative-control engine:l7]
+[1790764329.812] [sandbox] [OCSF ] [ocsf] CONFIG:PUBLISHED [INFO] Policy DNS mapped example.com resolved=104.20.23.154,172.66.147.243 synthetic=198.18.0.3 ports=443 mapping_id=17d7618b-1f0a-4529-a1e4-259b7b066ecf
+[1790764329.831] [sandbox] [OCSF ] [ocsf] NET:OPEN [INFO] ALLOWED /usr/local/bin/node(0) -> example.com:443 [policy:poc-negative-control engine:opa]
+[1790764329.856] [sandbox] [OCSF ] [ocsf] HTTP:HEAD [INFO] ALLOWED HEAD http://example.com:443/ [policy:poc-negative-control engine:l7]
+[1790764334.039] [sandbox] [OCSF ] [ocsf] CONFIG:PUBLISHED [INFO] Policy DNS mapped example.com resolved=104.20.23.154,172.66.147.243 synthetic=198.18.0.3 ports=443 mapping_id=dcc2b7c3-e315-4e18-8397-c673ae0d3647
+[1790764334.054] [sandbox] [OCSF ] [ocsf] NET:OPEN [INFO] ALLOWED /usr/local/bin/node(0) -> example.com:443 [policy:poc-negative-control engine:opa]
+[1790764334.073] [sandbox] [OCSF ] [ocsf] HTTP:HEAD [INFO] ALLOWED HEAD http://example.com:443/ [policy:poc-negative-control engine:l7]
+[1790764338.252] [sandbox] [OCSF ] [ocsf] CONFIG:PUBLISHED [INFO] Policy DNS mapped example.com resolved=104.20.23.154,172.66.147.243 synthetic=198.18.0.3 ports=443 mapping_id=de3c7bd8-04c1-4506-a87a-b513470f5f29
+[1790764338.266] [sandbox] [OCSF ] [ocsf] NET:OPEN [INFO] ALLOWED /usr/local/bin/node(0) -> example.com:443 [policy:poc-negative-control engine:opa]
+[1790764338.286] [sandbox] [OCSF ] [ocsf] HTTP:HEAD [INFO] ALLOWED HEAD http://example.com:443/ [policy:poc-negative-control engine:l7]
+[1790764342.466] [sandbox] [OCSF ] [ocsf] CONFIG:PUBLISHED [INFO] Policy DNS mapped example.com resolved=104.20.23.154,172.66.147.243 synthetic=198.18.0.3 ports=443 mapping_id=92030fd4-3d15-44ad-ba3c-3ad9c5861019
+[1790764342.480] [sandbox] [OCSF ] [ocsf] NET:OPEN [INFO] ALLOWED /usr/local/bin/node(0) -> example.com:443 [policy:poc-negative-control engine:opa]
+[1790764342.500] [sandbox] [OCSF ] [ocsf] HTTP:HEAD [INFO] ALLOWED HEAD http://example.com:443/ [policy:poc-negative-control engine:l7]
+[1790764346.686] [sandbox] [OCSF ] [ocsf] CONFIG:PUBLISHED [INFO] Policy DNS mapped example.com resolved=104.20.23.154,172.66.147.243 synthetic=198.18.0.3 ports=443 mapping_id=3d55474b-cf3b-4d1b-a991-1b9ecf8dade8
+[1790764346.700] [sandbox] [OCSF ] [ocsf] NET:OPEN [INFO] ALLOWED /usr/local/bin/node(0) -> example.com:443 [policy:poc-negative-control engine:opa]
+[1790764346.720] [sandbox] [OCSF ] [ocsf] HTTP:HEAD [INFO] ALLOWED HEAD http://example.com:443/ [policy:poc-negative-control engine:l7]
+[1790764350.929] [sandbox] [OCSF ] [ocsf] CONFIG:PUBLISHED [INFO] Policy DNS mapped example.com resolved=104.20.23.154,172.66.147.243 synthetic=198.18.0.3 ports=443 mapping_id=2028bf4e-5560-4299-89a9-ce034b07ff7f
+[1790764350.946] [sandbox] [OCSF ] [ocsf] NET:OPEN [INFO] ALLOWED /usr/local/bin/node(0) -> example.com:443 [policy:poc-negative-control engine:opa]
+[1790764350.972] [sandbox] [OCSF ] [ocsf] HTTP:HEAD [INFO] ALLOWED HEAD http://example.com:443/ [policy:poc-negative-control engine:l7]

@@ -1,0 +1,22 @@
+
+Created sandbox: ancestry-a
+
+  [0.0s] Requesting compute...
+[0.0s] Sandbox allocated
+[0.0s] Pulling image claude-agent:local
+[0.0s] Image already present
+[0.2s] Starting sandbox Container created
+== From a plain shell (parent: bash)
+[shell ] P1 node -> openrouter (no auth)       : HTTP 200
+[shell ] P2 node -> openrouter (placeholder key): HTTP 200 (real key injected)
+[shell ] P3 git  -> openrouter                   : BLOCKED
+== From a Claude Code SessionStart hook (parent: claude.exe)
+[claude] P1 node -> openrouter (no auth)       : HTTP 200
+[claude] P2 node -> openrouter (placeholder key): HTTP 200 (real key injected)
+[claude] P3 git  -> openrouter                   : reached (HTTP error from server)
+DONE
+Connection to sandbox closed by remote host.
+client_loop: send disconnect: Broken pipe
+Connection to sandbox lost; reconnecting. To disconnect, press Ctrl-P then Ctrl-Q after reattachment; press Ctrl-C while retrying to cancel.
+Error:   × code: 'Some requested entity was not found', message: "sandbox not found"
+

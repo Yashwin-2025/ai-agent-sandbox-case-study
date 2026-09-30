@@ -1,0 +1,23 @@
+
+Created sandbox: poc-control
+
+  [0.0s] Requesting compute...
+[0.0s] Sandbox allocated
+[0.0s] Pulling image claude-agent:local
+[0.0s] Image already present
+[0.2s] Starting sandbox Container created
+2026-09-30T10:31:36.197Z example.com -> BLOCKED EACCES
+2026-09-30T10:31:40.349Z example.com -> BLOCKED EACCES
+2026-09-30T10:31:44.442Z example.com -> BLOCKED EACCES
+2026-09-30T10:31:48.700Z example.com -> HTTP 200
+2026-09-30T10:31:52.896Z example.com -> HTTP 200
+2026-09-30T10:31:57.122Z example.com -> HTTP 200
+2026-09-30T10:32:01.446Z example.com -> HTTP 200
+2026-09-30T10:32:05.683Z example.com -> HTTP 200
+2026-09-30T10:32:09.879Z example.com -> HTTP 200
+2026-09-30T10:32:14.094Z example.com -> HTTP 200
+2026-09-30T10:32:18.313Z example.com -> HTTP 200
+2026-09-30T10:32:22.523Z example.com -> HTTP 200
+2026-09-30T10:32:26.755Z example.com -> HTTP 200
+2026-09-30T10:32:30.996Z example.com -> HTTP 200
+CTRLDONE

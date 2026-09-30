@@ -135,8 +135,9 @@ OpenShell enforces binary identity (`require_binary_identity: true`), so only th
 ```yaml
 binaries:
   - /usr/local/lib/node_modules/@anthropic-ai/claude-code/bin/claude.exe
-  - /usr/local/bin/node
 ```
+
+(An earlier version also listed `/usr/local/bin/node`. That let *any* node script use the key, so it was removed; see `case-study/RESULTS.md`.)
 
 Push the updated profile to the gateway, then re-create the sandbox:
 
@@ -154,26 +155,16 @@ openshell profile update --file provider-openrouter.yaml openrouter
 # 1. One-time: in Docker Desktop, enable host networking, then:
 brew services restart openshell
 
-# 2. Build the image (Dockerfile has the USER node, onboarding, and ENV changes above)
+# 2. Build the image. The Dockerfile bakes in the base URL, model, onboarding flag,
+#    and the .bashrc line that sets ANTHROPIC_AUTH_TOKEN. Change the model with --build-arg MODEL=...
 docker build -f Dockerfile.claude -t claude-agent:local .
 
-# 3. Re-create the sandbox
-openshell sandbox delete claude-openrouter
-openshell sandbox create \
-  --name claude-openrouter \
-  --from claude-agent:local \
-  --provider openrouter \
-  --env ANTHROPIC_BASE_URL=https://openrouter.ai/api \
-  --env ANTHROPIC_API_KEY="" \
-  --env ANTHROPIC_MODEL=cohere/north-mini-code:free \
-  --env ANTHROPIC_DEFAULT_OPUS_MODEL=cohere/north-mini-code:free \
-  --env ANTHROPIC_DEFAULT_SONNET_MODEL=cohere/north-mini-code:free \
-  --env ANTHROPIC_DEFAULT_HAIKU_MODEL=cohere/north-mini-code:free \
-  -- sh -c 'export ANTHROPIC_AUTH_TOKEN="$OPENROUTER_API_KEY"; exec claude'
+# 3. Create the sandbox with bash as the main process, then run `claude` inside it
+openshell sandbox create --name claude-openrouter --from claude-agent:local --provider openrouter -- bash
 ```
 
-- "Not logged in · Please run /login" means `ANTHROPIC_AUTH_TOKEN` is missing. Make sure the `sh -c '... exec claude'` wrapper is used, not a plain `-- claude`.
-- Without `ANTHROPIC_MODEL`, Claude Code defaults to Opus, which is billed through OpenRouter and is not free.
+- "Not logged in · Please run /login" means `ANTHROPIC_AUTH_TOKEN` is missing. Check with `echo $ANTHROPIC_AUTH_TOKEN` in the sandbox (it should print `openshell:...`).
+- Without `ANTHROPIC_MODEL`, Claude Code defaults to Opus, which is billed through OpenRouter and is not free. The image sets it.
 - Verified: the sandbox logs show `ALLOWED claude.exe -> openrouter.ai:443` and `POST /api/v1/messages`, and a `claude -p` run completed.
 
 ## Daily use: keep the sandbox alive and set the token automatically

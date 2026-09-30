@@ -10,17 +10,30 @@ RUN apt-get update \
     && ln -s /usr/bin/fdfind /usr/local/bin/fd \
     && rm -rf /var/lib/apt/lists/*
 
-RUN npm install -g @anthropic-ai/claude-code
+# Pinned so the claude.exe path allowlisted in the provider profile stays stable.
+ARG CLAUDE_CODE_VERSION=2.1.285
+RUN npm install -g @anthropic-ai/claude-code@${CLAUDE_CODE_VERSION}
 
+# OpenShell requires a non-root workload user that can write the WORKDIR.
 RUN mkdir -p /workspace && chown node:node /workspace
 
 USER node
 
 WORKDIR /workspace
 
-ENV CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1
+ARG MODEL=cohere/north-mini-code:free
+ENV ANTHROPIC_BASE_URL=https://openrouter.ai/api \
+    ANTHROPIC_MODEL=${MODEL} \
+    ANTHROPIC_DEFAULT_OPUS_MODEL=${MODEL} \
+    ANTHROPIC_DEFAULT_SONNET_MODEL=${MODEL} \
+    ANTHROPIC_DEFAULT_HAIKU_MODEL=${MODEL} \
+    CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1 \
+    DISABLE_AUTOUPDATER=1
 
-RUN echo '{"hasCompletedOnboarding":true}' > /workspace/.claude.json
+# OpenShell sets HOME=/workspace. Skip first-run onboarding (it calls api.anthropic.com)
+# and hand Claude Code the provider placeholder, which the OpenShell proxy swaps for the
+# real key. Single quotes: expanded inside the sandbox, not at build time.
+RUN echo '{"hasCompletedOnboarding":true}' > /workspace/.claude.json \
+    && echo 'export ANTHROPIC_AUTH_TOKEN="$OPENROUTER_API_KEY"' >> /workspace/.bashrc
 
-CMD ["claude"]
-
+CMD ["bash"]

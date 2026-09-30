@@ -1,0 +1,2 @@
+role=supervisor network=host user=65534:65534 privileged=false readonly_rootfs=true cap_drop=[ALL] cap_add=[] security_opt=[no-new-privileges:true] docker_sock_mounted=
+role=sandbox network=none user=1000:1000 privileged=false readonly_rootfs=false cap_drop=[ALL] cap_add=[] security_opt=[no-new-privileges:true] docker_sock_mounted=

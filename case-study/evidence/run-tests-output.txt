@@ -1,0 +1,38 @@
+
+Created sandbox: poc
+
+  [0.0s] Requesting compute...
+[0.0s] Sandbox allocated
+[0.0s] Pulling image claude-agent:local
+[0.0s] Image already present
+[0.2s] Starting sandbox Container created
+== Identity and privilege
+PASS 1   L1    Runs as non-root (uid 1000)                  | uid=1000(node) gid=1000(node) groups=1000(node)
+PASS 4a  L1    sudo not available                           | environment: line 11: sudo: command not found
+PASS 4b  L1    su to root fails                             | Password: su: System error
+PASS 4c  L2    No effective capabilities                    | CapEff:	0000000000000000
+PASS 4d  L2    no_new_privs set (no setuid escalation)      | NoNewPrivs:	1
+== Filesystem
+PASS 2   L1+L3 Workspace is writable                        | hi
+PASS 3   L1+L3 Cannot write /etc                            | touch: cannot touch '/etc/poc-test': Permission denied
+PASS 3b  L3    Cannot write /usr (image files)              | touch: cannot touch '/usr/local/bin/poc-test': Permission denied
+PASS 5a  L1+L3 Cannot read /root                            | ls: cannot open directory '/root': Permission denied
+PASS 5b  L3    Own home hidden despite ownership            | ls: cannot open directory '/home/node': Permission denied
+PASS 5c  L3    Tmp writable, but only allowlisted dirs      | ok
+== Container isolation
+PASS 6   L2    No Docker socket                             | 
+PASS 7   L2    Own PID namespace (few processes)            | 6 processes visible
+== Network (OpenShell egress policy)
+PASS 8   L3    Default-deny: example.com blocked            | BLOCKED EACCES
+PASS 8b  L3    Default-deny: api.anthropic.com blocked      | BLOCKED EACCES
+PASS 8c  L3    Raw IP bypass blocked (1.1.1.1:443)          | BLOCKED EACCES
+PASS 9   L3    Allowlisted: openrouter.ai reachable         | HTTP 200
+PASS 10  L3    Policy DNS returns synthetic 198.18.x        | 198.18.0.2
+PASS 11  L3    Binary identity: git -> openrouter denied    | fatal: unable to access 'https://openrouter.ai/x.git/': Failed to conn
+== Credentials
+FAIL 12a L3    Provider key is a placeholder                | sh: 1: Bad substitution
+PASS 12b L3    No real secret-looking env values            | none
+
+RESULT: 20 passed, 1 failed
+
+HOLDING

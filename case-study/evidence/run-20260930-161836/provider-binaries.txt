@@ -1,0 +1,2 @@
+Binaries:
+  /usr/local/lib/node_modules/@anthropic-ai/claude-code/bin/claude.exe

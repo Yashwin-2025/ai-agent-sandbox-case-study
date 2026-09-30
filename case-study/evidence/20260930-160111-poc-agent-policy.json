@@ -1,0 +1,54 @@
+{
+  "active_version": 1,
+  "config_revision": 10067005547663184644,
+  "hash": "1d7c54d58f6e05f0996a122f76c7b6c0512692ef5347f8f653cf67c642f76ffa",
+  "policy": {
+    "filesystem_policy": {
+      "include_workdir": true,
+      "read_only": [
+        "/bin",
+        "/usr",
+        "/lib",
+        "/proc",
+        "/dev/urandom",
+        "/etc",
+        "/var/log"
+      ],
+      "read_write": [
+        "/tmp",
+        "/dev/null"
+      ]
+    },
+    "landlock": {
+      "compatibility": "best_effort"
+    },
+    "network_policies": {
+      "_provider_openrouter": {
+        "binaries": [
+          {
+            "path": "/usr/local/lib/node_modules/@anthropic-ai/claude-code/bin/claude.exe"
+          },
+          {
+            "path": "/usr/local/bin/node"
+          }
+        ],
+        "endpoints": [
+          {
+            "access": "read-write",
+            "enforcement": "enforce",
+            "host": "openrouter.ai",
+            "port": 443,
+            "protocol": "rest"
+          }
+        ],
+        "name": "_provider_openrouter"
+      }
+    },
+    "version": 1
+  },
+  "policy_source": "sandbox",
+  "sandbox": "poc-agent",
+  "scope": "sandbox",
+  "status": "effective",
+  "version": 1
+}
